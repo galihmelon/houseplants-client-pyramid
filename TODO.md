@@ -1,0 +1,2 @@
+- GraphQL mutation to mark a plant as watered
+- Tests!

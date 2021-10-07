@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { useQuery } from "@apollo/client";
+
+import plantsToCareQuery from './common/plantsToCare.js'
+import Water from './water/Water'
+
 import './App.css';
 
 function App() {
+  const { loading, error, data } = useQuery(plantsToCareQuery);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header">Houseplants</header>
+      {data && data.plantsToCare?.map((plant, i) => <Water plant={plant} key={i} /> )}
     </div>
   );
 }
