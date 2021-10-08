@@ -1,12 +1,13 @@
+import React from 'react';
 import { useQuery } from "@apollo/client";
 
-import plantsToCareQuery from './common/plantsToCare.js'
+import PLANTS_TO_CARE_QUERY from './common/plantsToCare.js'
 import Water from './water/Water'
 
 import './App.css';
 
 function App() {
-  const { loading, error, data } = useQuery(plantsToCareQuery);
+  const { loading, error, data } = useQuery(PLANTS_TO_CARE_QUERY);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
