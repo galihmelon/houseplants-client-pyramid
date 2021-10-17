@@ -25,7 +25,7 @@ const Water = ({plant}) => {
 
       <Plant plant={plant} />
 
-      <IconButton onClick={handleWateredConfirmationOpen}>
+      <IconButton onClick={handleWateredConfirmationOpen} aria-label='water'>
         <CheckCircleIcon />
       </IconButton>
       <Dialog

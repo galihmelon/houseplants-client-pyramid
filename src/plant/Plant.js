@@ -18,7 +18,7 @@ const Plant = ({
       <img className="plant-image" src={plant.imageUrl} alt={plant.name} />
       <h2>{plant.name}</h2>
 
-      <IconButton onClick={handleInfoOpen}>
+      <IconButton onClick={handleInfoOpen} aria-label='info'>
         <InfoIcon />
       </IconButton>
       <Dialog
