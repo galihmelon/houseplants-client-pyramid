@@ -1,7 +1,3 @@
-- GraphQL mutation to mark a plant as watered
-- Tests!
-
-
 Optional:
 - Show one plant at a time
 - Show last water time

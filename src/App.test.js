@@ -1,15 +1,17 @@
-import React from 'react';
+import React from 'react'
 import {
   fireEvent,
   render,
   screen,
   waitFor,
-} from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
+import { MockedProvider } from '@apollo/client/testing'
 
-import PLANTS_TO_CARE_QUERY from './common/plantsToCare.js'
+import PLANTS_TO_CARE_QUERY from './common/plantsToCare'
+import WATER_PLANT_MUTATION from './water/WaterAPI'
 
-import App from './App';
+import App from './App'
 
 const plants_to_care_query_mock = {
   request: {
@@ -93,4 +95,74 @@ test('shows watering confirmation when checkmark icon is pressed', async() => {
   await waitFor(() => screen.getByText(/Watered?/i))
   await waitFor(() => screen.getByText(/No/i))
   await waitFor(() => screen.getByText(/Yes/i))
+})
+
+test('hides plant after watering', async() => {
+  const water_plant_mutation_mock = {
+    request: {
+      query: WATER_PLANT_MUTATION,
+      variables: { plantId: '1' },
+    },
+    result: {
+      data: {
+        waterPlant: {
+          wateringLog: {
+            plant: {
+              id: '1'
+            },
+            nextSuggestedDate: '2021-10-29',
+            waterDate: '2021-10-22'
+          }
+        }
+      }
+    }
+  }
+
+  const plants_to_care_query_refetch_mock = {
+    request: {
+      query: PLANTS_TO_CARE_QUERY,
+    },
+    result: {
+      data: {
+        plantsToCare: []
+      }
+    }
+  }
+
+  const mocks = [
+    plants_to_care_query_mock,
+    water_plant_mutation_mock,
+    plants_to_care_query_refetch_mock,
+  ]
+
+  render(
+    <MockedProvider mocks={mocks} addTypename={true}>
+      <App />
+    </MockedProvider>)
+
+  await waitFor(() => screen.getByText(/Pancake plant/i))
+  fireEvent.click(screen.getByRole('button', { name: /water/i}))
+
+  await waitFor(() => screen.getByText(/Yes/i))
+  fireEvent.click(screen.getByText(/Yes/i))
+
+  await waitForElementToBeRemoved(() => screen.queryByText(/Pancake plant/i))
+})
+
+test('does not hide plant without watering', async() => {
+  const mocks = [plants_to_care_query_mock]
+
+  render(
+    <MockedProvider mocks={mocks} addTypename={true}>
+      <App />
+    </MockedProvider>)
+
+  await waitFor(() => screen.getByText(/Pancake plant/i))
+  fireEvent.click(screen.getByRole('button', { name: /water/i}))
+
+  await waitFor(() => screen.getByText(/No/i))
+  fireEvent.click(screen.getByText(/No/i))
+
+  await waitForElementToBeRemoved(() => screen.queryByText(/No/i))
+  await waitFor(() => screen.getByText(/Pancake plant/i))
 })
