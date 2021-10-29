@@ -38,7 +38,7 @@ const Water = ({plant}) => {
 
   return (
     <>
-      <h1>Water time 💧</h1>
+      <h1>Water time <span role="img" aria-label="droplet">💧</span></h1>
 
       <Plant plant={plant} />
 
