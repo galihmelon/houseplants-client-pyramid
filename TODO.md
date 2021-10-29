@@ -1,6 +1,7 @@
+- Create unit tests for App.test.js calling query
+- Create unit tests for Water.test.js calling mutations
 - Create refactoring journey - add another care log (cleaning/pruning/repotting/fertilising/lighting)
   https://www.patchplants.com/gb/en/care/indoor-plant-care/
-- Create another repo with unit tests
 
 Optional:
 - Show one plant at a time
