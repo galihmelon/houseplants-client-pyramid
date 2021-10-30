@@ -1,3 +1,4 @@
+- Migrate from Mocha Chai to Jest https://dev.to/willholmes/why-i-think-jest-is-better-than-mocha-chai-78l
 - Create unit tests for App.test.js calling query
 - Create unit tests for Water.test.js calling mutations
 - Create refactoring journey - add another care log (cleaning/pruning/repotting/fertilising/lighting)
