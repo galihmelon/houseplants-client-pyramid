@@ -1,4 +1,3 @@
-- Create unit tests for App.test.js calling query
 - Create refactoring journey - add another care log (cleaning/pruning/repotting/fertilising/lighting)
   https://www.patchplants.com/gb/en/care/indoor-plant-care/
 
