@@ -4,7 +4,7 @@ import { MockedProvider } from '@apollo/client/testing'
 
 import PLANTS_TO_CARE_QUERY from './common/plantsToCare'
 import App from './App'
-import Water from './water/Water'
+import Care, { CARE_TYPES } from './care/Care'
 
 describe('App', () => {
   const mountWrapper = (mocks) => mount(
@@ -34,15 +34,25 @@ describe('App', () => {
 
   })
 
-  it('calls plantsToCare query and passes correct props to Water component', async () => {
+  it('calls plantsToCare query and passes correct props to Care component', async () => {
     const spy = jest.fn(() => ({
       data: {
-        plantsToCare: [{
-          id: '1',
-          name: 'Pancake plant',
-          imageUrl: 'https://examples.com/pancake-plant.png',
-          description: 'A plant that grows pancakes every morning',
-        }]
+        plantsToCare: [
+          {
+            id: '1',
+            name: 'Pancake plant',
+            imageUrl: 'https://examples.com/pancake-plant.png',
+            description: 'A plant that grows pancakes every morning',
+            careType: CARE_TYPES.WATER,
+          },
+          {
+            id: '2',
+            name: 'UFO plant',
+            imageUrl: 'https://examples.com/pancake-plant.png',
+            description: 'A plant that summons aliens',
+            careType: CARE_TYPES.CLEAN,
+          },
+        ]
       },
     }))
     const mocks = [{
@@ -59,11 +69,20 @@ describe('App', () => {
       
       expect(spy).toHaveBeenCalled()
 
-      expect(wrapper.find(Water).prop('plant')).toEqual({
+      expect(wrapper.find(Care).at(0).prop('plant')).toEqual({
         id: '1',
         name: 'Pancake plant',
         imageUrl: 'https://examples.com/pancake-plant.png',
         description: 'A plant that grows pancakes every morning',
+        careType: CARE_TYPES.WATER,
+      })
+
+      expect(wrapper.find(Care).at(1).prop('plant')).toEqual({
+        id: '2',
+        name: 'UFO plant',
+        imageUrl: 'https://examples.com/pancake-plant.png',
+        description: 'A plant that summons aliens',
+        careType: CARE_TYPES.CLEAN,
       })
     })
   })

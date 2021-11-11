@@ -16,8 +16,8 @@ import Plant from '../plant/Plant'
 import { CLEAN_PLANT_MUTATION, WATER_PLANT_MUTATION } from './CareAPI'
 
 export const CARE_TYPES = {
-  WATER: 'water',
-  CLEAN: 'cleam',
+  WATER: 'WATER',
+  CLEAN: 'CLEAN',
 }
 
 const CARE_TYPE_DATA =  {

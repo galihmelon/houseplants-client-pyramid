@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from "@apollo/client"
 
 import PLANTS_TO_CARE_QUERY from './common/plantsToCare'
-import Water from './water/Water'
+import Care from './care/Care'
 
 import './App.css'
 
@@ -15,7 +15,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">Houseplants</header>
-      {data && data.plantsToCare?.map((plant, i) => <Water plant={plant} key={i} /> )}
+      {data && data.plantsToCare?.map(
+        (plant, i) => <Care plant={plant} careType={plant.careType} key={i} />
+      )}
     </div>
   )
 }
