@@ -5,6 +5,8 @@ import { MockedProvider } from '@apollo/client/testing'
 import PLANTS_TO_CARE_QUERY from './common/plantsToCare'
 import App from './App'
 import Water from './water/Water'
+import Clean from './clean/Clean'
+import { CARE_TYPES } from './common/constants'
 
 describe('App', () => {
   const mountWrapper = (mocks) => mount(
@@ -42,6 +44,14 @@ describe('App', () => {
           name: 'Pancake plant',
           imageUrl: 'https://examples.com/pancake-plant.png',
           description: 'A plant that grows pancakes every morning',
+          careType: CARE_TYPES.WATER,
+        },
+        {
+          id: '2',
+          name: 'UFO plant',
+          imageUrl: 'https://examples.com/pancake-plant.png',
+          description: 'A plant that summons aliens',
+          careType: CARE_TYPES.CLEAN,
         }]
       },
     }))
@@ -64,6 +74,15 @@ describe('App', () => {
         name: 'Pancake plant',
         imageUrl: 'https://examples.com/pancake-plant.png',
         description: 'A plant that grows pancakes every morning',
+        careType: CARE_TYPES.WATER,
+      })
+
+      expect(wrapper.find(Clean).prop('plant')).toEqual({
+        id: '2',
+        name: 'UFO plant',
+        imageUrl: 'https://examples.com/pancake-plant.png',
+        description: 'A plant that summons aliens',
+        careType: CARE_TYPES.CLEAN,
       })
     })
   })
